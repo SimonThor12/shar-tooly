@@ -1,4 +1,6 @@
 import mainicon from "../../public/shar-tooly-favicon-white.png";
+import { GetTools } from "../Utils.ts";
+
 
 function Hero() {
   return (
@@ -22,7 +24,7 @@ function Hero() {
             This is the place to share your tools with the world! Don't let them
             gather dust in your garage, share them with the community!
           </p>
-          <button className="btn btn-secondary">Get Started</button>
+          <button onClick={GetTools} className="btn btn-secondary">Get Started</button>
         </div>
       </div>
     </div>
