@@ -9,7 +9,9 @@ const activeProps = {
 export const Route = createRootRoute({
   component: () => (
     <>
-      <ul>
+      <ul
+        data-theme="shartooly"
+        className="p-4 text-4xl flex justify-evenly shadow-xl">
         <li>
           <Link
             to="/"
