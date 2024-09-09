@@ -1,3 +1,5 @@
+import { textChangeRangeIsUnchanged } from "typescript";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -9,7 +11,7 @@ export default {
       {
         shartooly: {
           primary: "#001f3f",
-          secondary: "black",
+          secondary: "#000000",
           accent: "#001f3f",
           background: "#F7D65A",
         },
