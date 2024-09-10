@@ -30,7 +30,7 @@ function Uploadform() {
       name: formData.get("toolName") as string,
       description: formData.get("description") as string,
       model: formData.get("model") as string,
-      imageUrl: ImageName,
+      imageName: ImageName,
     };
 
     mutate(newTool);
@@ -74,7 +74,7 @@ function Uploadform() {
             placeholder="M1"
           />
         </label>
-      
+        
         <button className="btn btn-primary">Submit</button>
       </form>
     </>

@@ -11,7 +11,7 @@ function Toolcard({ toolItem }: ToolcardProps) {
       <figure>
         <img
           className="object-cover w-full h-60"
-          src={`/localBlob/${toolItem.imageUrl}`}
+          src={`/localBlob/${toolItem.imageName}`}
           alt="No picture available"
         />
       </figure>

@@ -42,15 +42,28 @@ public class ToolsController(ToolContext context) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Tool>> Create(ToolRequest toolRequest)
+    public async Task<ActionResult<Tool>> Create([FromForm] ToolRequest toolRequest)
     {
+
+        string imageUrl = string.Empty;
+
+        if (toolRequest.Image != null)
+        {
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "../shar-tooly-frontend/public/localBlob", toolRequest.Image.FileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await toolRequest.Image.CopyToAsync(stream);
+            }
+            imageUrl = $"{toolRequest.Image.FileName}";
+        }
         var tool = new Tool
         {
             Id = Guid.NewGuid().ToString(),
             Model = toolRequest.Model,
             Name = toolRequest.Name,
             Description = toolRequest.Description,
-            ImageUrl = toolRequest.ImageUrl
+            ImageName = imageUrl
         };
 
         _context.Tools.Add(tool);

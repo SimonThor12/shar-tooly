@@ -2,7 +2,7 @@ export type Tool = {
   model: string;
   name: string;
   description: string;
-  imageUrl: string;
+  imageName: string;
 };
 export async function GetTools() {
   try {
