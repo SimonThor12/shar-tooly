@@ -1,19 +1,25 @@
 import { Tool } from "../Utils";
 
-function Toolcard(tools: Tool[]) {
+type ToolcardProps = {
+  toolItem: Tool;
+};
+
+function Toolcard({ toolItem }: ToolcardProps) {
+  console.log(toolItem);
   return (
     <div className="card card-compact bg-base-100 w-96 shadow-xl">
       <figure>
         <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-          alt="Shoes"
+          className="object-cover w-full h-60"
+          src={`/localBlob/${toolItem.imageUrl}`}
+          alt="No picture available"
         />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">Shoes!</h2>
-        <p>If a dog chews shoes whose shoes does he choose?</p>
+        <h2 className="card-title"> {toolItem.name}</h2>
+        <p>{toolItem.description}</p>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">Buy Now</button>
+          <button className="btn btn-primary">Lend</button>
         </div>
       </div>
     </div>

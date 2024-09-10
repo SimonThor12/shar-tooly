@@ -2,13 +2,14 @@ import { createFileRoute } from "@tanstack/react-router";
 import ToolcardSkeleton from "../Components/ToolcardSkeleton.tsx";
 import { useQuery } from "@tanstack/react-query";
 import { GetTools } from "../Utils.ts";
+import Toolcard from "../Components/Toolcard.tsx";
 
 export const Route = createFileRoute("/gallery")({
   component: () => Gallery(),
 });
 
 function Gallery() {
-  const { data, isFetched, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["tools"],
     queryFn: GetTools,
   });
@@ -28,12 +29,8 @@ function Gallery() {
       <div className="m-2 gap-10 flex flex-wrap justify-center">
         {data != undefined &&
           data.map((tool) => (
-            <div
-              key={tool.id}
-              className="toolcard">
-              <h2>{tool.name}</h2>
-              <p>{tool.description}</p>
-            </div>
+            <Toolcard toolItem={tool}/>
+            
           ))}
         {isLoading && (
           <>

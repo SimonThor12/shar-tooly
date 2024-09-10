@@ -3,7 +3,7 @@ export type Tool = {
   model: string;
   name: string;
   description: string;
-  url: string;
+  imageUrl: string;
 };
 export async function GetTools() {
   try {
@@ -16,7 +16,7 @@ export async function GetTools() {
     const data: Tool[] = await response.json();
 
     console.log(data);
-    return data;
+    return data as Tool[];
   } catch (error) {
     console.error("Error fetching data:", error);
   }
