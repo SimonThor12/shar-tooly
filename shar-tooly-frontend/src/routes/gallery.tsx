@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import ToolcardSkeleton from "../Components/ToolcardSkeleton.tsx";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { GetTools } from "../Utils.ts";
 import Toolcard from "../Components/Toolcard.tsx";
 
@@ -13,6 +13,21 @@ function Gallery() {
     queryKey: ["tools"],
     queryFn: GetTools,
   });
+
+  function handleFilterSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const formDataFromFilter = new FormData(e.target as HTMLFormElement);
+
+    const filter = formDataFromFilter.get("filter") as string;
+
+    const filteredData = data!.filter((tool) => tool.name.includes(filter));
+    if (data == undefined) {
+      return;
+    } else {
+      console.log(filteredData);
+      return filteredData;
+    }
+  }
   return (
     <>
       <p className="text-center">
@@ -20,18 +35,18 @@ function Gallery() {
       </p>
 
       <div className="flex justify-center">
-        <input
-          type="text"
-          placeholder="Filter..."
-          className="p-2 m-2"
-        />
+        <form onSubmit={handleFilterSubmit}>
+          <input
+            type="text"
+            name="filter"
+            placeholder="Filter..."
+            className="p-2 m-2"
+          />
+          <button className="btn">Search</button>
+        </form>
       </div>
       <div className="m-2 gap-10 flex flex-wrap justify-center">
-        {data != undefined &&
-          data.map((tool) => (
-            <Toolcard toolItem={tool}/>
-            
-          ))}
+        {data != undefined && data.map((tool) => <Toolcard toolItem={tool} />)}
         {isLoading && (
           <>
             <ToolcardSkeleton />
