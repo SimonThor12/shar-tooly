@@ -1,32 +1,41 @@
 import { createFileRoute } from "@tanstack/react-router";
 import ToolcardSkeleton from "../Components/ToolcardSkeleton.tsx";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { GetTools } from "../Utils.ts";
+import { GetTools, Tool } from "../Utils.ts";
 import Toolcard from "../Components/Toolcard.tsx";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 export const Route = createFileRoute("/gallery")({
   component: () => Gallery(),
 });
 
 function Gallery() {
+  const [filter, setFilter] = useState("");
+
   const { data, isLoading, error } = useQuery({
     queryKey: ["tools"],
     queryFn: GetTools,
   });
 
-  function handleFilterSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const filteredData = filter
+    ? data?.filter((tool: Tool) =>
+        tool.name.toLowerCase().includes(filter.toLowerCase())
+      )
+    : data;
+
+  // const { isFetched: filterIsFetched, data: filteredData } = useQuery({
+  //   queryKey: ["filteredTools", filter],
+  //   queryFn: ({ queryKey }) => GetFilteredTools(queryKey[1]),
+  // });
+
+  async function handleFilterSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
     const formDataFromFilter = new FormData(e.target as HTMLFormElement);
 
     const filter = formDataFromFilter.get("filter") as string;
 
-    const filteredData = data!.filter((tool) => tool.name.includes(filter));
-    if (data == undefined) {
-      return;
-    } else {
-      console.log(filteredData);
-      return filteredData;
-    }
+    setFilter(filter);
   }
   return (
     <>
@@ -46,7 +55,6 @@ function Gallery() {
         </form>
       </div>
       <div className="m-2 gap-10 flex flex-wrap justify-center">
-        {data != undefined && data.map((tool) => <Toolcard toolItem={tool} />)}
         {isLoading && (
           <>
             <ToolcardSkeleton />
@@ -56,6 +64,9 @@ function Gallery() {
             <ToolcardSkeleton />
           </>
         )}
+        {filteredData &&
+          filteredData.map((tool) => <Toolcard toolItem={tool} />)}
+
         {error && (
           <p>Can not find the tools right now, please try again later.</p>
         )}

@@ -1,6 +1,6 @@
-import mainicon from "../../public/shar-tooly-favicon-white.png";
-import { GetTools } from "../Utils.ts";
-import backgroundImg from "../../public/clayton-robbins-Ru09fQONJWo-unsplash.jpg";
+import { Link } from "@tanstack/react-router";
+import mainicon from "/shar-tooly-favicon-white.png";
+import backgroundImg from "/clayton-robbins-Ru09fQONJWo-unsplash.jpg";
 
 function Hero() {
   return (
@@ -24,10 +24,8 @@ function Hero() {
             This is the place to share your tools with the world! Don't let them
             gather dust in your garage, share them with the community!
           </p>
-          <button
-            onClick={GetTools}
-            className="btn btn-secondary">
-            Get Started
+          <button className="btn btn-secondary">
+            <Link to="/uploadform">Get Started</Link>
           </button>
         </div>
       </div>

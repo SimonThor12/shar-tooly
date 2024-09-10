@@ -28,10 +28,22 @@ public class ToolsController(ToolContext context) : ControllerBase
         return _context.Tools.Find(id)!;
     }
 
-    [HttpPost]
-    public async Task<Tool> Create(ToolRequest toolRequest)
+    [HttpGet("search")]
+    public async Task<List<Tool>> Search([FromQuery] string? query)
     {
-      
+        if (query is null)
+        {
+            return await _context.Tools.ToListAsync();
+        }
+
+        return await _context.Tools
+            .Where(tool => tool.Name.Contains(query))
+            .ToListAsync();
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<Tool>> Create(ToolRequest toolRequest)
+    {
         var tool = new Tool
         {
             Id = Guid.NewGuid().ToString(),
@@ -44,6 +56,7 @@ public class ToolsController(ToolContext context) : ControllerBase
         _context.Tools.Add(tool);
         await _context.SaveChangesAsync();
 
-        return tool;
+        return CreatedAtAction(nameof(GetById), new { id = tool.Id }, tool);
     }
 }
+

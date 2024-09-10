@@ -11,12 +11,18 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as UploadformImport } from './routes/uploadform'
 import { Route as ProfileImport } from './routes/profile'
 import { Route as LoginImport } from './routes/login'
 import { Route as GalleryImport } from './routes/gallery'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const UploadformRoute = UploadformImport.update({
+  path: '/uploadform',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const ProfileRoute = ProfileImport.update({
   path: '/profile',
@@ -70,6 +76,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileImport
       parentRoute: typeof rootRoute
     }
+    '/uploadform': {
+      id: '/uploadform'
+      path: '/uploadform'
+      fullPath: '/uploadform'
+      preLoaderRoute: typeof UploadformImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -80,6 +93,7 @@ export interface FileRoutesByFullPath {
   '/gallery': typeof GalleryRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
+  '/uploadform': typeof UploadformRoute
 }
 
 export interface FileRoutesByTo {
@@ -87,6 +101,7 @@ export interface FileRoutesByTo {
   '/gallery': typeof GalleryRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
+  '/uploadform': typeof UploadformRoute
 }
 
 export interface FileRoutesById {
@@ -95,14 +110,15 @@ export interface FileRoutesById {
   '/gallery': typeof GalleryRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
+  '/uploadform': typeof UploadformRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/gallery' | '/login' | '/profile'
+  fullPaths: '/' | '/gallery' | '/login' | '/profile' | '/uploadform'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/gallery' | '/login' | '/profile'
-  id: '__root__' | '/' | '/gallery' | '/login' | '/profile'
+  to: '/' | '/gallery' | '/login' | '/profile' | '/uploadform'
+  id: '__root__' | '/' | '/gallery' | '/login' | '/profile' | '/uploadform'
   fileRoutesById: FileRoutesById
 }
 
@@ -111,6 +127,7 @@ export interface RootRouteChildren {
   GalleryRoute: typeof GalleryRoute
   LoginRoute: typeof LoginRoute
   ProfileRoute: typeof ProfileRoute
+  UploadformRoute: typeof UploadformRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -118,6 +135,7 @@ const rootRouteChildren: RootRouteChildren = {
   GalleryRoute: GalleryRoute,
   LoginRoute: LoginRoute,
   ProfileRoute: ProfileRoute,
+  UploadformRoute: UploadformRoute,
 }
 
 export const routeTree = rootRoute
@@ -135,7 +153,8 @@ export const routeTree = rootRoute
         "/",
         "/gallery",
         "/login",
-        "/profile"
+        "/profile",
+        "/uploadform"
       ]
     },
     "/": {
@@ -149,6 +168,9 @@ export const routeTree = rootRoute
     },
     "/profile": {
       "filePath": "profile.tsx"
+    },
+    "/uploadform": {
+      "filePath": "uploadform.tsx"
     }
   }
 }

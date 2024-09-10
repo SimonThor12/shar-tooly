@@ -55,6 +55,13 @@ export const Route = createRootRoute({
                     Profile
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    to="/uploadform"
+                    activeProps={activeProps}>
+                    Share Tool
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
