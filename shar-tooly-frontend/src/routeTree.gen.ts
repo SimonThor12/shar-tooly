@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as ProfileImport } from './routes/profile'
+import { Route as LoginImport } from './routes/login'
 import { Route as GalleryImport } from './routes/gallery'
 import { Route as IndexImport } from './routes/index'
 
@@ -19,6 +20,11 @@ import { Route as IndexImport } from './routes/index'
 
 const ProfileRoute = ProfileImport.update({
   path: '/profile',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LoginRoute = LoginImport.update({
+  path: '/login',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -50,6 +56,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GalleryImport
       parentRoute: typeof rootRoute
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginImport
+      parentRoute: typeof rootRoute
+    }
     '/profile': {
       id: '/profile'
       path: '/profile'
@@ -65,12 +78,14 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/gallery': typeof GalleryRoute
+  '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/gallery': typeof GalleryRoute
+  '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
 }
 
@@ -78,27 +93,30 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/gallery': typeof GalleryRoute
+  '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/gallery' | '/profile'
+  fullPaths: '/' | '/gallery' | '/login' | '/profile'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/gallery' | '/profile'
-  id: '__root__' | '/' | '/gallery' | '/profile'
+  to: '/' | '/gallery' | '/login' | '/profile'
+  id: '__root__' | '/' | '/gallery' | '/login' | '/profile'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   GalleryRoute: typeof GalleryRoute
+  LoginRoute: typeof LoginRoute
   ProfileRoute: typeof ProfileRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   GalleryRoute: GalleryRoute,
+  LoginRoute: LoginRoute,
   ProfileRoute: ProfileRoute,
 }
 
@@ -116,6 +134,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/gallery",
+        "/login",
         "/profile"
       ]
     },
@@ -124,6 +143,9 @@ export const routeTree = rootRoute
     },
     "/gallery": {
       "filePath": "gallery.tsx"
+    },
+    "/login": {
+      "filePath": "login.tsx"
     },
     "/profile": {
       "filePath": "profile.tsx"

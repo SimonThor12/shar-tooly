@@ -8,7 +8,7 @@ export const Route = createFileRoute("/gallery")({
 });
 
 function Gallery() {
-  const { data, isFetched } = useQuery({
+  const { data, isFetched, isLoading, error } = useQuery({
     queryKey: ["tools"],
     queryFn: GetTools,
   });
@@ -26,8 +26,8 @@ function Gallery() {
         />
       </div>
       <div className="m-2 gap-10 flex flex-wrap justify-center">
-        {isFetched &&
-          data!.map((tool) => (
+        {data != undefined &&
+          data.map((tool) => (
             <div
               key={tool.id}
               className="toolcard">
@@ -35,12 +35,18 @@ function Gallery() {
               <p>{tool.description}</p>
             </div>
           ))}
-        <ToolcardSkeleton />
-        <ToolcardSkeleton />
-        <ToolcardSkeleton />
-        <ToolcardSkeleton />
-        <ToolcardSkeleton />
-        <ToolcardSkeleton />
+        {isLoading && (
+          <>
+            <ToolcardSkeleton />
+            <ToolcardSkeleton />
+            <ToolcardSkeleton />
+            <ToolcardSkeleton />
+            <ToolcardSkeleton />
+          </>
+        )}
+        {error && (
+          <p>Can not find the tools right now, please try again later.</p>
+        )}
       </div>
     </>
   );
