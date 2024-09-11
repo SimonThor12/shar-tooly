@@ -59,6 +59,27 @@ export async function PostTool(formData: FormData) {
   }
 }
 
+export async function BorrowTool(id: string, userId: string) {
+  try {
+    const response: Response = await fetch(
+      "http://localhost:5294/Tools/" + id + "?userId=" + userId,
+      {
+        method: "PUT",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data: Tool = await response.json();
+
+    return data as Tool;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
 export async function DeleteTool(id: string) {
   try {
     const response: Response = await fetch(

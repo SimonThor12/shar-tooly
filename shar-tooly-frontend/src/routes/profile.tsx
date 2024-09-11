@@ -96,8 +96,8 @@ function Profile() {
         </div>
       )}
       {
-        //one list of tools for the logged in user
-        //One list of tools that this user has lent
+        //one table of tools for the logged in user
+        //One table of tools that this user has lent
       }
       {isLoggedIn && (
         <div className="flex flex-col gap-10">

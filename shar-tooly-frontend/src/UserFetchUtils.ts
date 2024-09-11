@@ -39,3 +39,21 @@ export async function GetOwnedToolsByUserId(userId: string) {
     console.error("Error fetching data:", error);
   }
 }
+
+export async function GetBorrowedToolsByUserId(userId: string) {
+  try {
+    const response: Response = await fetch(
+      "http://localhost:5294/Tools/borrowed/" + userId
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data: Tool[] = await response.json();
+
+    return data as Tool[];
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}

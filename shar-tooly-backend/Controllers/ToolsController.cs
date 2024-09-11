@@ -50,7 +50,7 @@ public class ToolsController(ToolContext context) : ControllerBase
             .ToListAsync();
     }
 
-    [HttpGet("rented/{userId}")]
+    [HttpGet("user/borrowed/{userId}")]
     public async Task<List<Tool>> GetBorrowedToolsByUserId(string userId)
     {
         return await _context.Tools
@@ -59,7 +59,7 @@ public class ToolsController(ToolContext context) : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<Tool>> BorrowTool(string id, [FromQuery] string? userId)
+    public async Task<ActionResult<Tool>> BorrowTool(string id, [FromQuery] string userId)
     {
         if (id is null)
         {

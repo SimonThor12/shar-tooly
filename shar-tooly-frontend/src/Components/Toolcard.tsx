@@ -1,12 +1,25 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { DeleteTool, Tool } from "../ToolFetchUtils";
+import { BorrowTool, Tool } from "../ToolFetchUtils";
+import { useAuth } from "./AuthProvider";
 
 type ToolcardProps = {
   toolItem: Tool;
 };
 
 function Toolcard({ toolItem }: ToolcardProps) {
+  const clientQuery = useQueryClient();
+  const { currentUserId } = useAuth();
 
+  const { mutate } = useMutation({
+    mutationKey: ["borrowTool"],
+    mutationFn: () => BorrowTool(toolItem.id as string, currentUserId),
+  });
+
+  function handleBorrowing() {
+    alert("You have borrowed the " + toolItem.name);
+    mutate();
+    clientQuery.invalidateQueries({ queryKey: ["tools"] });
+  }
 
   return (
     <div className="card bg-base-100 w-1/5 h-30 shadow-xl">
@@ -21,7 +34,11 @@ function Toolcard({ toolItem }: ToolcardProps) {
         <h2 className="card-title"> {toolItem.name}</h2>
         <p>{toolItem.description}</p>
         <div className="card-actions justify-center">
-          <button className="btn font-bold  btn-secondary">Lend</button>
+          <button
+            onClick={handleBorrowing}
+            className="btn font-bold btn-secondary">
+            Borrow
+          </button>
         </div>
       </div>
     </div>
