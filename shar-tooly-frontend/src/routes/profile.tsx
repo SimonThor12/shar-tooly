@@ -27,17 +27,17 @@ function Profile() {
     mutationKey: ["deleteTool"],
     mutationFn: DeleteTool,
     onSuccess: () => {
-      clientQuery.invalidateQueries({ queryKey: ["tools"] });
+      clientQuery.invalidateQueries({ queryKey: ["toolsowned"] });
     },
   });
   const { data: userOwnedTools, refetch: refetchOwnedTools } = useQuery({
-    queryKey: ["ownedtools", currentUserId],
+    queryKey: ["toolsowned", currentUserId],
     queryFn: () => GetOwnedToolsByUserId(currentUserId),
     enabled: !!currentUserId,
   });
 
   const { data: userBorrowedTools, refetch: refetchBorrowedTools } = useQuery({
-    queryKey: ["borrowedtools", currentUserId],
+    queryKey: ["toolsborrowed", currentUserId],
     queryFn: () => GetBorrowedToolsByUserId(currentUserId),
     enabled: !!currentUserId,
   });

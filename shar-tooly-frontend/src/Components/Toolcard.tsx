@@ -16,7 +16,7 @@ function Toolcard({ toolItem }: ToolcardProps) {
   });
 
   function handleBorrowing() {
-    alert("You have borrowed the " + toolItem.name);
+    alert("You have borrowed the " + toolItem);
     mutate();
     clientQuery.invalidateQueries({ queryKey: ["tools"] });
   }

@@ -74,6 +74,7 @@ public class ToolsController(ToolContext context) : ControllerBase
         }
 
         tool.RenterId = userId;
+        tool.IsAvailable = false;
 
         _context.Tools.Update(tool);
         await _context.SaveChangesAsync();
@@ -104,7 +105,8 @@ public class ToolsController(ToolContext context) : ControllerBase
             Model = toolRequest.Model,
             Name = toolRequest.Name,
             Description = toolRequest.Description,
-            ImageName = imageUrl
+            ImageName = imageUrl,
+            IsAvailable = true,
         };
 
         _context.Tools.Add(tool);

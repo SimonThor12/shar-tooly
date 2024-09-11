@@ -14,6 +14,8 @@ public class Tool()
 
     [ForeignKey("User")]
     public string? RenterId { get; set; }
+    [Required]
+    public required bool IsAvailable { get; set; }
 
     public required string Name { get; set; }
     public string? Description { get; set; }
