@@ -21,7 +21,7 @@ function Gallery() {
     ? data?.filter((tool: Tool) =>
         tool.name.toLowerCase().includes(filter.toLowerCase())
       )
-    : data;
+    : data?.filter((tool: Tool) => tool.isAvailable == true);
 
   async function handleFilterSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -59,14 +59,16 @@ function Gallery() {
             <ToolcardSkeleton />
           </>
         )}
-        {filteredData &&
-          filteredData.map((tool) => (
-            <Toolcard
-              key={tool.id}
-              toolItem={tool}
-            />
-          ))}
-
+        {filteredData && (
+          <>
+            {filteredData.map((tool: Tool) => (
+              <Toolcard
+                key={tool.id}
+                toolItem={tool}
+              />
+            ))}
+          </>
+        )}
         {error && (
           <p>Can not find the tools right now, please try again later.</p>
         )}

@@ -4,6 +4,7 @@ export type Tool = {
   name: string;
   description: string;
   imageName: string;
+  isAvailable: boolean;
 };
 
 export async function GetTools() {

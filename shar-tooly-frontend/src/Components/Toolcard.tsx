@@ -13,19 +13,21 @@ function Toolcard({ toolItem }: ToolcardProps) {
   const { mutate } = useMutation({
     mutationKey: ["borrowTool"],
     mutationFn: () => BorrowTool(toolItem.id as string, currentUserId),
+    onSuccess: () => {
+      clientQuery.invalidateQueries({ queryKey: ["tools"] });
+    },
   });
 
   function handleBorrowing() {
     alert("You have borrowed the " + toolItem);
     mutate();
-    clientQuery.invalidateQueries({ queryKey: ["tools"] });
   }
 
   return (
-    <div className="card bg-base-100 w-1/5 h-30 shadow-xl">
+    <div className="card bg-base-100 shadow-xl">
       <figure>
         <img
-          className="object-contain w-full h-50"
+          className="object-contain w-full size-40"
           src={`/localBlob/${toolItem.imageName}`}
           alt="No picture available"
         />
