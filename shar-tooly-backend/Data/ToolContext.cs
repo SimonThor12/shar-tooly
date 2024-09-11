@@ -5,7 +5,9 @@ public class ToolContext : DbContext
 {
     public ToolContext(DbContextOptions<ToolContext> options) : base(options)
     {
+        
     }
 
     public DbSet<Tool> Tools { get; set; }
+    public DbSet<User> Users { get; set; }
 }

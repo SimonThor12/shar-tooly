@@ -60,6 +60,7 @@ public class ToolsController(ToolContext context) : ControllerBase
         var tool = new Tool
         {
             Id = Guid.NewGuid().ToString(),
+            OwnerId = _context.Users.First().Id,
             Model = toolRequest.Model,
             Name = toolRequest.Name,
             Description = toolRequest.Description,
