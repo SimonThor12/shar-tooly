@@ -23,11 +23,6 @@ function Gallery() {
       )
     : data;
 
-  // const { isFetched: filterIsFetched, data: filteredData } = useQuery({
-  //   queryKey: ["filteredTools", filter],
-  //   queryFn: ({ queryKey }) => GetFilteredTools(queryKey[1]),
-  // });
-
   async function handleFilterSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -65,7 +60,12 @@ function Gallery() {
           </>
         )}
         {filteredData &&
-          filteredData.map((tool) => <Toolcard toolItem={tool} />)}
+          filteredData.map((tool) => (
+            <Toolcard
+              key={tool.id}
+              toolItem={tool}
+            />
+          ))}
 
         {error && (
           <p>Can not find the tools right now, please try again later.</p>

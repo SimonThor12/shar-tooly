@@ -71,5 +71,33 @@ public class ToolsController(ToolContext context) : ControllerBase
 
         return CreatedAtAction(nameof(GetById), new { id = tool.Id }, tool);
     }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> Delete(string id)
+    {
+        if (id is null)
+        {
+            return NotFound();
+        }
+
+        var tool = _context.Tools.Find(id);
+
+        if (tool is null)
+        {
+            return NotFound();
+        }
+
+        _context.Tools.Remove(tool);
+        await _context.SaveChangesAsync();
+
+        //remove image from localBlob
+        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "../shar-tooly-frontend/public/localBlob", tool.ImageName ?? string.Empty);
+        if (System.IO.File.Exists(filePath))
+        {
+            System.IO.File.Delete(filePath);
+        }
+
+        return NoContent();
+    }
 }
 

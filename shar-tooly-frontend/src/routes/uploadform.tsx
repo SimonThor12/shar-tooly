@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PostTool, Tool } from "../Utils";
+import { PostTool } from "../Utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const Route = createFileRoute("/uploadform")({
@@ -19,21 +19,10 @@ function Uploadform() {
 
   const handleNewToolSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    e.currentTarget.reset();
 
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(e.target as HTMLFormElement);
 
-    const Image = formData.get("file") as File;
-    const ImageName = Image.name;
-
-    const newTool: Tool = {
-      name: formData.get("toolName") as string,
-      description: formData.get("description") as string,
-      model: formData.get("model") as string,
-      imageName: ImageName,
-    };
-
-    mutate(newTool);
+    mutate(formData);
   };
 
   return (
@@ -46,14 +35,14 @@ function Uploadform() {
         className="mx-auto my-10 flex flex-col gap-4 items-center justify-center">
         <input
           type="file"
-          name="file"
+          name="Image"
           className="file-input w-full max-w-xs"
         />
         <label className="w-1/4 input input-bordered flex items-center gap-2">
           Tool name:
           <input
             required
-            name="toolName"
+            name="Name"
             type="text"
             placeholder="Axe"
           />
@@ -61,7 +50,7 @@ function Uploadform() {
         <label className="w-1/4 input input-bordered flex items-center gap-2">
           Description:
           <input
-            name="description"
+            name="Description"
             type="text"
             placeholder="Cuts wood"
           />
@@ -69,12 +58,12 @@ function Uploadform() {
         <label className="w-1/4 input input-bordered flex items-center gap-2">
           Model:
           <input
-            name="model"
+            name="Model"
             type="text"
             placeholder="M1"
           />
         </label>
-        
+
         <button className="btn btn-primary">Submit</button>
       </form>
     </>

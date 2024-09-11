@@ -24,9 +24,11 @@ function Hero() {
             This is the place to share your tools with the world! Don't let them
             gather dust in your garage, share them with the community!
           </p>
-          <button className="btn btn-secondary">
-            <Link to="/uploadform">Get Started</Link>
-          </button>
+          <Link
+            className="btn btn-secondary"
+            to="/gallery">
+            Get Started
+          </Link>
         </div>
       </div>
     </div>
