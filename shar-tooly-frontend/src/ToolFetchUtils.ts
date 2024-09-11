@@ -16,7 +16,6 @@ export async function GetTools() {
 
     const data: Tool[] = await response.json();
 
-    console.log(data);
     return data as Tool[];
   } catch (error) {
     console.error("Error fetching data:", error);

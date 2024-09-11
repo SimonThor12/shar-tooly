@@ -25,7 +25,11 @@ function Profile() {
       clientQuery.invalidateQueries({ queryKey: ["tools"] });
     },
   });
-  const { data: userOwnedTools, refetch: refetchTools } = useQuery({
+  const {
+    data: userOwnedTools,
+    refetch: refetchTools,
+    isFetched: userToolsFetched,
+  } = useQuery({
     queryKey: ["tools", currentUserId],
     queryFn: () => GetOwnedToolsByUserId(currentUserId),
     enabled: !!currentUserId,
@@ -96,32 +100,72 @@ function Profile() {
         //One list of tools that this user has lent
       }
       {isLoggedIn && (
-        <div>
-          <h2>My tools</h2>
-          <ul>
-            {userOwnedTools &&
-              userOwnedTools?.map((tool) => (
-                <li key={tool.id}>
-                  <p>{tool.name}</p>
-                  <p>{tool.description}</p>
-                  <p>{tool.model}</p>
-                  <button onClick={() => handleDelete(tool.id!)}>Delete</button>
-                </li>
-              ))}
-          </ul>
-          <ul>
-            <h2>Tools I have lent</h2>
-            <li>
-              <p>Tool 1</p>
-              <p>Tool 1 description</p>
-              <p>Tool 1 model</p>
-            </li>
-            <li>
-              <p>Tool 2</p>
-              <p>Tool 2 description</p>
-              <p>Tool 2 model</p>
-            </li>
-          </ul>
+        <div className="flex flex-col gap-10">
+          <h2 className="text-4xl font-bold">My tools</h2>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Model</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {userOwnedTools &&
+                userOwnedTools?.map((tool) => (
+                  <tr key={tool.id}>
+                    <td>
+                      <img
+                        className="object-contain size-20"
+                        src={`/localBlob/${tool.imageName}`}
+                        alt="No picture available"
+                      />
+                    </td>
+                    <td>{tool.name}</td>
+                    <td>{tool.description}</td>
+                    <td>{tool.model}</td>
+                    <td>
+                      <button
+                        onClick={() => handleDelete(tool.id as string)}
+                        className="btn btn-error">
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+          <h2 className="text-4xl font-bold">Currently Borrowed Tools</h2>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Model</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {userOwnedTools &&
+                userOwnedTools?.map((tool) => (
+                  <tr key={tool.id}>
+                    <td>
+                      <img
+                        className="object-contain size-20"
+                        src={`/localBlob/${tool.imageName}`}
+                        alt="No picture available"
+                      />
+                    </td>
+                    <td>{tool.name}</td>
+                    <td>{tool.description}</td>
+                    <td>{tool.model}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
         </div>
       )}
     </div>
