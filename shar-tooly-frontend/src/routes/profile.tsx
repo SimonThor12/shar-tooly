@@ -1,6 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { GetAllUsers, GetOwnedToolsByUserId, User } from "../UserFetchUtils";
+import {
+  GetAllUsers,
+  GetBorrowedToolsByUserId,
+  GetOwnedToolsByUserId,
+  User,
+} from "../UserFetchUtils";
 import { useAuth } from "../Components/AuthProvider";
 import { DeleteTool } from "../ToolFetchUtils";
 import { useEffect } from "react";
@@ -25,13 +30,15 @@ function Profile() {
       clientQuery.invalidateQueries({ queryKey: ["tools"] });
     },
   });
-  const {
-    data: userOwnedTools,
-    refetch: refetchTools,
-    isFetched: userToolsFetched,
-  } = useQuery({
-    queryKey: ["tools", currentUserId],
+  const { data: userOwnedTools, refetch: refetchOwnedTools } = useQuery({
+    queryKey: ["ownedtools", currentUserId],
     queryFn: () => GetOwnedToolsByUserId(currentUserId),
+    enabled: !!currentUserId,
+  });
+
+  const { data: userBorrowedTools, refetch: refetchBorrowedTools } = useQuery({
+    queryKey: ["borrowedtools", currentUserId],
+    queryFn: () => GetBorrowedToolsByUserId(currentUserId),
     enabled: !!currentUserId,
   });
 
@@ -52,8 +59,7 @@ function Profile() {
     if (isFetched && data) {
       if (
         data!.some(
-          (user: User) =>
-            user.username === username && user.password === password
+          (user: User) => user.username == username && user.password == password
         )
       ) {
         login(userId!);
@@ -65,9 +71,10 @@ function Profile() {
 
   useEffect(() => {
     if (isLoggedIn && currentUserId) {
-      refetchTools();
+      refetchOwnedTools();
+      refetchBorrowedTools();
     }
-  }, [currentUserId, isLoggedIn, refetchTools]);
+  }, [currentUserId, isLoggedIn, refetchOwnedTools, refetchBorrowedTools]);
 
   return (
     <div className="flex flex-col mx-auto items-center justify-center w-3/4">
@@ -114,7 +121,7 @@ function Profile() {
 
             <tbody>
               {userOwnedTools &&
-                userOwnedTools?.map((tool) => (
+                userOwnedTools.map((tool) => (
                   <tr key={tool.id}>
                     <td>
                       <img
@@ -149,8 +156,8 @@ function Profile() {
             </thead>
 
             <tbody>
-              {userOwnedTools &&
-                userOwnedTools?.map((tool) => (
+              {userBorrowedTools &&
+                userBorrowedTools.map((tool) => (
                   <tr key={tool.id}>
                     <td>
                       <img

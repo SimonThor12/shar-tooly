@@ -43,7 +43,7 @@ export async function GetOwnedToolsByUserId(userId: string) {
 export async function GetBorrowedToolsByUserId(userId: string) {
   try {
     const response: Response = await fetch(
-      "http://localhost:5294/Tools/borrowed/" + userId
+      "http://localhost:5294/Tools/user/borrowed/" + userId
     );
 
     if (!response.ok) {
