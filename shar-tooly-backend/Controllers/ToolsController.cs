@@ -11,6 +11,7 @@ public class ToolsController(ToolContext context) : ControllerBase
 {
     private readonly ToolContext _context = context;
 
+
     [HttpGet]
     public async Task<List<Tool>> GetAll()
     {

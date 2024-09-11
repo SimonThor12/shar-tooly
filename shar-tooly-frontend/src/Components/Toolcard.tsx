@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { DeleteTool, Tool } from "../Utils";
+import { DeleteTool, Tool } from "../ToolFetchUtils";
 
 type ToolcardProps = {
   toolItem: Tool;

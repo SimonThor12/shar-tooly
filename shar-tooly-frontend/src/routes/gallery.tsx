@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import ToolcardSkeleton from "../Components/ToolcardSkeleton.tsx";
-import { GetTools, Tool } from "../Utils.ts";
+import { GetTools, Tool } from "../ToolFetchUtils.ts";
 import Toolcard from "../Components/Toolcard.tsx";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
