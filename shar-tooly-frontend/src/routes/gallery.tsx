@@ -34,7 +34,7 @@ function Gallery() {
   }
   return (
     <>
-      <p className="text-center">
+      <p className="mt-10 mb-10 text-xl text-center">
         Check out some of the tools that our community has shared!
       </p>
 

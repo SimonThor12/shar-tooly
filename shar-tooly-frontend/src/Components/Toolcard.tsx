@@ -6,22 +6,10 @@ type ToolcardProps = {
 };
 
 function Toolcard({ toolItem }: ToolcardProps) {
-  const clientQuery = useQueryClient();
 
-  const { mutate } = useMutation({
-    mutationKey: ["deleteTool"],
-    mutationFn: DeleteTool,
-    onSuccess: () => {
-      clientQuery.invalidateQueries({ queryKey: ["tools"] });
-    },
-  });
-
-  async function handleDelete() {
-    mutate(toolItem.id!);
-  }
 
   return (
-    <div className="card card-compact bg-base-100 w-1/5 h-30 shadow-xl">
+    <div className="card bg-base-100 w-1/5 h-30 shadow-xl">
       <figure>
         <img
           className="object-contain w-full h-50"
@@ -32,13 +20,8 @@ function Toolcard({ toolItem }: ToolcardProps) {
       <div className="card-body">
         <h2 className="card-title"> {toolItem.name}</h2>
         <p>{toolItem.description}</p>
-        <div className="card-actions justify-end">
-          <button className="btn btn-primary">Lend</button>
-          <button
-            onClick={handleDelete}
-            className="btn btn-warning">
-            Delete
-          </button>
+        <div className="card-actions justify-center">
+          <button className="btn font-bold  btn-secondary">Lend</button>
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import { Link, Outlet, createRootRoute } from "@tanstack/react-router";
+import { useAuth } from "../Components/AuthProvider";
 
 const activeProps = {
   style: {
@@ -7,7 +8,13 @@ const activeProps = {
 };
 
 export const Route = createRootRoute({
-  component: () => (
+  component: () => Root(),
+});
+
+function Root() {
+  const { isLoggedIn, logout } = useAuth();
+
+  return (
     <>
       <nav className="font-bold bg-secondary">
         <div className="navbar">
@@ -79,10 +86,19 @@ export const Route = createRootRoute({
               className="btn btn-secondary">
               Profile
             </Link>
+            {isLoggedIn && (
+              <Link
+                to="/profile"
+                activeProps={activeProps}
+                className="btn btn-secondary"
+                onClick={logout}>
+                Log Out
+              </Link>
+            )}
           </div>
         </div>
       </nav>
       <Outlet />
     </>
-  ),
-});
+  );
+}

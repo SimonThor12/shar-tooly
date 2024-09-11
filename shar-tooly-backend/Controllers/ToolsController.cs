@@ -42,6 +42,45 @@ public class ToolsController(ToolContext context) : ControllerBase
             .ToListAsync();
     }
 
+    [HttpGet("user/{userId}")]
+    public async Task<List<Tool>> GetOwnedToolsByUserId(string userId)
+    {
+        return await _context.Tools
+            .Where(tool => tool.OwnerId == userId)
+            .ToListAsync();
+    }
+
+    [HttpGet("rented/{userId}")]
+    public async Task<List<Tool>> GetBorrowedToolsByUserId(string userId)
+    {
+        return await _context.Tools
+            .Where(tool => tool.RenterId == userId)
+            .ToListAsync();
+    }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult<Tool>> BorrowTool(string id, [FromQuery] string? userId)
+    {
+        if (id is null)
+        {
+            return NotFound();
+        }
+
+        var tool = _context.Tools.Find(id);
+
+        if (tool is null)
+        {
+            return NotFound();
+        }
+
+        tool.RenterId = userId;
+
+        _context.Tools.Update(tool);
+        await _context.SaveChangesAsync();
+
+        return tool;
+    }
+
     [HttpPost]
     public async Task<ActionResult<Tool>> Create([FromForm] ToolRequest toolRequest)
     {
