@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { BorrowTool, Tool } from "../ToolFetchUtils";
 import { useAuth } from "./AuthProvider";
+import noPicAlt from "../assets/no-pic-alt.svg";
 
 type ToolcardProps = {
   toolItem: Tool;
@@ -26,11 +27,21 @@ function Toolcard({ toolItem }: ToolcardProps) {
   return (
     <div className="card bg-base-100 shadow-xl">
       <figure>
-        <img
-          className="object-contain w-full size-40"
-          src={`/localBlob/${toolItem.imageName}`}
-          alt="No picture available"
-        />
+        {toolItem.imageName ? (
+          <img
+            className="object-contain w-full size-40"
+            src={`/localBlob/${toolItem.imageName}`}
+            alt={toolItem.name}
+          />
+        ) : (
+          <div className="h-40 flex items-center justify-center bg-gray-200">
+            <img
+              className="object-contain w-full size-40 p-4"
+              src={noPicAlt}
+              alt="No picture available"
+            />
+          </div>
+        )}
       </figure>
       <div className="card-body">
         <h2 className="card-title"> {toolItem.name}</h2>
