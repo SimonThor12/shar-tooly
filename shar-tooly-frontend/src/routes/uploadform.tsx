@@ -2,6 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PostTool } from "../ToolFetchUtils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "../Components/AuthProvider";
+import toast, { Toaster } from "react-hot-toast";
+
+const notify = () => toast("You have successfully uploaded a tool!");
 
 export const Route = createFileRoute("/uploadform")({
   component: () => Uploadform(),
@@ -62,11 +65,16 @@ function Uploadform() {
           <input
             name="Model"
             type="text"
-            placeholder="M1"
+            placeholder="Classic"
           />
         </label>
 
-        <button className="btn btn-primary">Submit</button>
+        <button
+          onClick={notify}
+          className="btn btn-primary">
+          Submit
+        </button>
+        <Toaster />
       </form>
     </div>
   );
