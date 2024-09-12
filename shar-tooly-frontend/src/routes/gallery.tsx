@@ -17,11 +17,14 @@ function Gallery() {
     queryFn: GetTools,
   });
 
+  const availableTools = data?.filter((tool: Tool) => tool.isAvailable == true);
   const filteredData = filter
-    ? data?.filter((tool: Tool) =>
-        tool.name.toLowerCase().includes(filter.toLowerCase())
-      )
-    : data?.filter((tool: Tool) => tool.isAvailable == true);
+    ? availableTools
+        ?.filter((tool: Tool) =>
+          tool.name.toLowerCase().includes(filter.toLowerCase())
+        )
+        .filter((tool: Tool) => tool.isAvailable == true)
+    : availableTools;
 
   async function handleFilterSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
