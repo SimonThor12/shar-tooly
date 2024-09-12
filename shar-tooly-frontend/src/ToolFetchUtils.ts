@@ -2,6 +2,7 @@ export type Tool = {
   id?: string;
   model: string;
   name: string;
+  OwnerId: string;
   description: string;
   imageName: string;
   isAvailable: boolean;

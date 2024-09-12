@@ -22,6 +22,24 @@ export async function GetAllUsers() {
   }
 }
 
+export async function GetUserById(userId: string) {
+  try {
+    const response: Response = await fetch(
+      "http://localhost:5294/User/" + userId
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data: User = await response.json();
+
+    return data as User;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
 export async function GetOwnedToolsByUserId(userId: string) {
   try {
     const response: Response = await fetch(

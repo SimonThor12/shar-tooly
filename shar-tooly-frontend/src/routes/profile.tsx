@@ -149,8 +149,8 @@ function Profile() {
           <h2 className="text-4xl font-bold">My tools</h2>
 
           {userOwnedTools && userOwnedTools.length > 0 ? (
-            <table className="table">
-              <thead>
+            <table className="table text-lg">
+              <thead className="text-xl">
                 <tr>
                   <th>Image</th>
                   <th>Name</th>
@@ -202,8 +202,8 @@ function Profile() {
           <h2 className="text-4xl font-bold">Currently Borrowed Tools</h2>
 
           {userBorrowedTools && userBorrowedTools.length > 0 ? (
-            <table className="table">
-              <thead>
+            <table className="table text-lg">
+              <thead className="text-xl">
                 <tr>
                   <th>Image</th>
                   <th>Name</th>
