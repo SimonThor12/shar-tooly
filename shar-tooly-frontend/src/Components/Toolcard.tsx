@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { BorrowTool, Tool } from "../ToolFetchUtils";
 import { useAuth } from "./AuthProvider";
 import noPicAlt from "../assets/no-pic-alt.svg";
+import toast, { ToastBar, Toaster } from "react-hot-toast";
 
 type ToolcardProps = {
   toolItem: Tool;
@@ -19,8 +20,10 @@ function Toolcard({ toolItem }: ToolcardProps) {
     },
   });
 
+  const notify = () => toast("You borrowed a tool! 🛠️");
+
   function handleBorrowing() {
-    alert("You have borrowed the " + toolItem);
+    notify();
     mutate();
   }
 
@@ -52,6 +55,7 @@ function Toolcard({ toolItem }: ToolcardProps) {
             className="btn font-bold btn-secondary">
             Borrow
           </button>
+          <Toaster />
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "../Components/AuthProvider";
 import toast, { Toaster } from "react-hot-toast";
 
-const notify = () => toast("You have successfully uploaded a tool!");
+const notify = () => toast.success("You have successfully uploaded a tool!");
 
 export const Route = createFileRoute("/uploadform")({
   component: () => Uploadform(),

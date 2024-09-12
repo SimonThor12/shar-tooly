@@ -9,6 +9,25 @@ import {
 import { useAuth } from "../Components/AuthProvider";
 import { DeleteTool, returnTool } from "../ToolFetchUtils";
 import { useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
+
+const notifyDelete = () => {
+  toast.success("You successfully deleted a tool!"),
+    {
+      duration: 2000,
+    };
+};
+
+const notifyLoginError = () => {
+  toast.error("Invalid credentials!"),
+    {
+      duration: 1000,
+    };
+};
+const notifyReturn = () => toast.success("You returned a tool!");
+
+const notifyLoginSuccess = () =>
+  toast.success("You have successfully logged in!");
 
 export const Route = createFileRoute("/profile")({
   component: () => Profile(),
@@ -53,13 +72,16 @@ function Profile() {
 
   async function handleDelete(toolId: string) {
     deleteMutate(toolId);
+    notifyDelete();
   }
 
   async function handleReturn(toolId: string) {
     returnMutate(toolId);
+    notifyReturn();
   }
 
   async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
 
     const username = formData.get("username") as string;
@@ -76,8 +98,9 @@ function Profile() {
         )
       ) {
         login(userId!);
+        notifyLoginSuccess();
       } else {
-        alert("Invalid credentials");
+        notifyLoginError();
       }
     }
   }
@@ -91,6 +114,7 @@ function Profile() {
 
   return (
     <div className="flex flex-col mx-auto items-center justify-center w-3/4">
+      <Toaster />
       {!isLoggedIn && (
         <div className="mt-10">
           <form
@@ -111,7 +135,11 @@ function Profile() {
                 type="password"
               />
             </label>
-            <button type="submit">Login</button>
+            <button
+              className=" btn btn-secondary"
+              type="submit">
+              Login
+            </button>
           </form>
         </div>
       )}
