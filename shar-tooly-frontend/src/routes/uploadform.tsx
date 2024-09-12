@@ -12,17 +12,17 @@ function Uploadform() {
   const { mutate } = useMutation({
     mutationKey: ["postTools"],
     mutationFn: PostTool,
-    onSuccess: () => {
-      clientQuery.invalidateQueries({ queryKey: ["tools"] });
-    },
   });
-
+  
   const handleNewToolSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const formData = new FormData(e.target as HTMLFormElement);
-
-    mutate(formData);
+    mutate(formData, {
+      onSuccess: () => {
+        (e.target as HTMLFormElement).reset();
+        clientQuery.invalidateQueries({ queryKey: ["tools"] });
+      },
+    });
   };
 
   return (
