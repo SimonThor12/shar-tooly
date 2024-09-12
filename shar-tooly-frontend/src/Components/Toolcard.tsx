@@ -50,11 +50,14 @@ function Toolcard({ toolItem }: ToolcardProps) {
         <h2 className="card-title"> {toolItem.name}</h2>
         <p>{toolItem.description}</p>
         <div className="card-actions justify-center">
-          <button
-            onClick={handleBorrowing}
-            className="btn font-bold btn-secondary">
-            Borrow
-          </button>
+          {currentUserId && (
+            <button
+              onClick={handleBorrowing}
+              className="btn font-bold btn-secondary">
+              Borrow
+            </button>
+          )}
+
           <Toaster />
         </div>
       </div>
