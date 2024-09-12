@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { BorrowTool, Tool } from "../ToolFetchUtils";
 import { useAuth } from "./AuthProvider";
 import noPicAlt from "../assets/no-pic-alt.svg";
-import toast, { ToastBar, Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 type ToolcardProps = {
   toolItem: Tool;
