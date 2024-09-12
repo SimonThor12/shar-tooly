@@ -7,7 +7,7 @@ import {
   User,
 } from "../UserFetchUtils";
 import { useAuth } from "../Components/AuthProvider";
-import { DeleteTool } from "../ToolFetchUtils";
+import { DeleteTool, returnTool } from "../ToolFetchUtils";
 import { useEffect } from "react";
 
 export const Route = createFileRoute("/profile")({
@@ -23,13 +23,22 @@ function Profile() {
     queryFn: GetAllUsers,
   });
 
-  const { mutate } = useMutation({
+  const { mutate: deleteMutate } = useMutation({
     mutationKey: ["deleteTool"],
     mutationFn: DeleteTool,
     onSuccess: () => {
       clientQuery.invalidateQueries({ queryKey: ["toolsowned"] });
     },
   });
+
+  const { mutate: returnMutate } = useMutation({
+    mutationKey: ["returnTool"],
+    mutationFn: returnTool,
+    onSuccess: () => {
+      clientQuery.invalidateQueries({ queryKey: ["toolsborrowed"] });
+    },
+  });
+
   const { data: userOwnedTools, refetch: refetchOwnedTools } = useQuery({
     queryKey: ["toolsowned", currentUserId],
     queryFn: () => GetOwnedToolsByUserId(currentUserId),
@@ -43,7 +52,11 @@ function Profile() {
   });
 
   async function handleDelete(toolId: string) {
-    mutate(toolId);
+    deleteMutate(toolId);
+  }
+
+  async function handleReturn(toolId: string) {
+    returnMutate(toolId);
   }
 
   async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
@@ -169,6 +182,13 @@ function Profile() {
                     <td>{tool.name}</td>
                     <td>{tool.description}</td>
                     <td>{tool.model}</td>
+                    <td>
+                      <button
+                        onClick={() => handleReturn(tool.id as string)}
+                        className="btn btn-error">
+                        Return
+                      </button>
+                    </td>
                   </tr>
                 ))}
             </tbody>

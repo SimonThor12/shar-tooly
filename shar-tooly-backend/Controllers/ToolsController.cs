@@ -82,6 +82,30 @@ public class ToolsController(ToolContext context) : ControllerBase
         return tool;
     }
 
+    [HttpPut("return/{id}")]
+    public async Task<ActionResult<Tool>> ReturnTool(string id)
+    {
+        if (id is null)
+        {
+            return NotFound();
+        }
+
+        var tool = _context.Tools.Find(id);
+
+        if (tool is null)
+        {
+            return NotFound();
+        }
+
+        tool.RenterId = null;
+        tool.IsAvailable = true;
+
+        _context.Tools.Update(tool);
+        await _context.SaveChangesAsync();
+
+        return tool;
+    }
+
     [HttpPost]
     public async Task<ActionResult<Tool>> Create([FromForm] ToolRequest toolRequest, [FromQuery] string userId)
     {
