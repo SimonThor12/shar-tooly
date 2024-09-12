@@ -28,7 +28,7 @@ function Toolcard({ toolItem }: ToolcardProps) {
   }
 
   return (
-    <div className="card w-40 bg-base-100 shadow-xl">
+    <div className="card w-80 bg-base-100 shadow-xl">
       <figure>
         {toolItem.imageName ? (
           <img
@@ -46,10 +46,12 @@ function Toolcard({ toolItem }: ToolcardProps) {
           </div>
         )}
       </figure>
-      <div className="card-body">
+      <div className="card-body text-sm">
         <h2 className="card-title"> {toolItem.name}</h2>
+
         <p>{toolItem.description}</p>
-        <div className="card-actions justify-center">
+
+        <div className="card-actions justify-end">
           {currentUserId && (
             <button
               onClick={handleBorrowing}
