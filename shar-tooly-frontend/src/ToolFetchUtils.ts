@@ -41,12 +41,15 @@ export async function GetFilteredTools(searchTerm: string) {
   }
 }
 
-export async function PostTool(formData: FormData) {
+export async function PostTool(formData: FormData, userId: string) {
   try {
-    const response: Response = await fetch("http://localhost:5294/Tools", {
-      method: "POST",
-      body: formData,
-    });
+    const response: Response = await fetch(
+      "http://localhost:5294/Tools?userId=" + userId,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);

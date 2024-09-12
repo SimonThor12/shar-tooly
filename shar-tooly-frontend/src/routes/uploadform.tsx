@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PostTool } from "../ToolFetchUtils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useAuth } from "../Components/AuthProvider";
 
 export const Route = createFileRoute("/uploadform")({
   component: () => Uploadform(),
@@ -8,12 +9,13 @@ export const Route = createFileRoute("/uploadform")({
 
 function Uploadform() {
   const clientQuery = useQueryClient();
+  const { currentUserId } = useAuth();
 
   const { mutate } = useMutation({
     mutationKey: ["postTools"],
-    mutationFn: PostTool,
+    mutationFn: (formData: FormData) => PostTool(formData, currentUserId),
   });
-  
+
   const handleNewToolSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
