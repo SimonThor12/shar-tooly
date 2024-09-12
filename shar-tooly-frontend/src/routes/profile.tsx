@@ -156,6 +156,7 @@ function Profile() {
                   <th>Name</th>
                   <th>Description</th>
                   <th>Model</th>
+                  <th>Status</th>
                 </tr>
               </thead>
 
@@ -170,13 +171,21 @@ function Profile() {
                           alt="No picture available"
                         />
                       </td>
-                      <td>{tool.name}</td>
+                      <td className="font-bold">{tool.name}</td>
                       <td>{tool.description}</td>
                       <td>{tool.model}</td>
                       <td>
+                        {tool.isAvailable ? (
+                          <span className="text-green-500">Available</span>
+                        ) : (
+                          <span className="text-red-500">Borrowed</span>
+                        )}
+                      </td>
+
+                      <td>
                         <button
                           onClick={() => handleDelete(tool.id as string)}
-                          className="btn btn-error">
+                          className="btn btn-md hover:bg-red-500">
                           Delete
                         </button>
                       </td>
@@ -214,13 +223,13 @@ function Profile() {
                           alt="No picture available"
                         />
                       </td>
-                      <td>{tool.name}</td>
+                      <td className="font-bold">{tool.name}</td>
                       <td>{tool.description}</td>
                       <td>{tool.model}</td>
                       <td>
                         <button
                           onClick={() => handleReturn(tool.id as string)}
-                          className="btn btn-error">
+                          className="btn btn-md hover:bg-red-500">
                           Return
                         </button>
                       </td>
