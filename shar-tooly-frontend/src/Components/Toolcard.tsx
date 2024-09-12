@@ -28,7 +28,7 @@ function Toolcard({ toolItem }: ToolcardProps) {
   }
 
   return (
-    <div className="card w-80 bg-base-100 shadow-xl">
+    <div className="card min-w-40 w-80 bg-base-100 shadow-xl">
       <figure>
         {toolItem.imageName ? (
           <img
@@ -47,7 +47,7 @@ function Toolcard({ toolItem }: ToolcardProps) {
       <div className="card-body text-sm">
         <h2 className="card-title"> {toolItem.name}</h2>
 
-        <p>{toolItem.description}</p>
+        <p className="hidden md:block">{toolItem.description}</p>
         <p>{toolItem.model}</p>
 
         <div className="card-actions justify-end">

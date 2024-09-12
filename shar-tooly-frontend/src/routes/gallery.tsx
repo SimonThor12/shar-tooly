@@ -83,7 +83,7 @@ function Gallery() {
           </label>
         </form>
       </div>
-      <div className="grid grid-cols-3 gap-10 p-40 pt-5">
+      <div className="flex flex-wrap justify-center md:justify-evenly gap-10 p-20 pt-5 grid-">
         {isLoading && (
           <>
             <ToolcardSkeleton />
