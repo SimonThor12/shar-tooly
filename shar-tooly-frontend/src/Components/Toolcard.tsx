@@ -50,6 +50,7 @@ function Toolcard({ toolItem }: ToolcardProps) {
         <h2 className="card-title"> {toolItem.name}</h2>
 
         <p>{toolItem.description}</p>
+        <p>{toolItem.model}</p>
 
         <div className="card-actions justify-end">
           {currentUserId && (
