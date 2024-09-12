@@ -83,7 +83,7 @@ public class ToolsController(ToolContext context) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Tool>> Create([FromForm] ToolRequest toolRequest)
+    public async Task<ActionResult<Tool>> Create([FromForm] ToolRequest toolRequest, [FromQuery] string userId)
     {
 
         string imageUrl = string.Empty;
@@ -101,7 +101,7 @@ public class ToolsController(ToolContext context) : ControllerBase
         var tool = new Tool
         {
             Id = Guid.NewGuid().ToString(),
-            OwnerId = _context.Users.First().Id,
+            OwnerId = userId,
             Model = toolRequest.Model,
             Name = toolRequest.Name,
             Description = toolRequest.Description,
