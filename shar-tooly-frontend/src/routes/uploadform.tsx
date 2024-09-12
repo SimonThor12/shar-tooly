@@ -28,19 +28,19 @@ function Uploadform() {
   };
 
   return (
-    <>
+    <div className="flex flex-col justify-center items-center gap-10">
       <h2 className="mt-10 text-xl text-center">
         Get started by sharing your first tool with the community!
       </h2>
       <form
         onSubmit={handleNewToolSubmit}
-        className="mx-auto my-10 flex flex-col gap-4 items-center justify-center">
+        className="mx-auto flex flex-col gap-4 items-center justify-center">
         <input
           type="file"
           name="Image"
-          className="file-input w-full max-w-xs"
+          className="file-input w-80"
         />
-        <label className="w-1/4 input input-bordered flex items-center gap-2">
+        <label className="w-80 input input-bordered flex items-center gap-2">
           Tool name:
           <input
             required
@@ -49,7 +49,7 @@ function Uploadform() {
             placeholder="Axe"
           />
         </label>
-        <label className="w-1/4 input input-bordered flex items-center gap-2">
+        <label className="w-80 input input-bordered flex items-center gap-2">
           Description:
           <input
             name="Description"
@@ -57,7 +57,7 @@ function Uploadform() {
             placeholder="Cuts wood"
           />
         </label>
-        <label className="w-1/4 input input-bordered flex items-center gap-2">
+        <label className="w-80 input input-bordered flex items-center gap-2">
           Model:
           <input
             name="Model"
@@ -68,6 +68,6 @@ function Uploadform() {
 
         <button className="btn btn-primary">Submit</button>
       </form>
-    </>
+    </div>
   );
 }

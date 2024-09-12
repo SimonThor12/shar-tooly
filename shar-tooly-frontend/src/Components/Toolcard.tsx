@@ -25,16 +25,16 @@ function Toolcard({ toolItem }: ToolcardProps) {
   }
 
   return (
-    <div className="card bg-base-100 shadow-xl">
+    <div className="card w-40 bg-base-100 shadow-xl">
       <figure>
         {toolItem.imageName ? (
           <img
-            className="object-contain w-full size-40"
+            className="object-contain w-full"
             src={`/localBlob/${toolItem.imageName}`}
             alt={toolItem.name}
           />
         ) : (
-          <div className="h-40 flex items-center justify-center bg-gray-200">
+          <div className="flex items-center justify-center bg-gray-200">
             <img
               className="object-contain w-full size-40 p-4"
               src={noPicAlt}
