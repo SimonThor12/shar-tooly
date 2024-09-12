@@ -45,7 +45,10 @@ function Gallery() {
       </h1>
       {!currentUserId && (
         <div className="text-center">
-          <h2 className="text-lg">Please log in to borrow these tools</h2>
+          <h2 className="text-lg">
+            Feel free to browse, although you need to be signed in to borrow
+            tools
+          </h2>
           <Link
             to="/profile"
             className="btn-link border-black ">
@@ -87,7 +90,6 @@ function Gallery() {
             <ToolcardSkeleton />
             <ToolcardSkeleton />
             <ToolcardSkeleton />
-            {/* ... more skeletons */}
           </>
         )}
         {filteredData && (
