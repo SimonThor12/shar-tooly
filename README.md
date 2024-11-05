@@ -4,6 +4,7 @@ Backend tech:
   - .Net web Api
   - Dotnet EF core
   - Sqlite
+
 Frontend tech:
   - Vite
   - React w. Typescript
